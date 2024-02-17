@@ -1,10 +1,12 @@
 extends CharacterBody2D
 
-@export var SPEED: float = 75
+@export var SPEED: float = 40
+
+@onready var area_2d = %Area2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	area_2d.area_entered.connect(_on_area_entered)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -19,3 +21,7 @@ func get_direction_to_player():
 	
 	if (player_node != null):
 		return (player_node.global_position - global_position).normalized()
+
+
+func _on_area_entered(other_area: Area2D):
+	queue_free()
