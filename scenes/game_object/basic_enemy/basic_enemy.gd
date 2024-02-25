@@ -2,7 +2,8 @@ extends CharacterBody2D
 
 @export var SPEED: float = 40
 
-@onready var area_2d = %Area2D
+@onready var area_2d: Area2D = %Area2D
+@onready var health_component: HealthComponent = %HealthComponent
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,4 +25,4 @@ func get_direction_to_player():
 
 
 func _on_area_entered(other_area: Area2D):
-	queue_free()
+	health_component.damage(1)
