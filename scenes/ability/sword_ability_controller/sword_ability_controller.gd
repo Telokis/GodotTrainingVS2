@@ -4,6 +4,7 @@ extends Node
 @export var spawn_range: float = 5
 
 @export var sword_ability: PackedScene
+var damage: int = 5
 
 @onready var timer = %Timer
 
@@ -33,9 +34,10 @@ func _on_timer_timeout():
 	
 	var selected_enemy = enemies[0]
 	
-	var sword_instance = sword_ability.instantiate() as Node2D
-	player.get_parent().add_child(sword_instance)
+	var sword_instance = sword_ability.instantiate() as SwordAbility
 	sword_instance.global_position = selected_enemy.global_position
+	player.get_parent().add_child(sword_instance)
+	sword_instance.hitbox_component.damage = damage
 	
 	# We take a random unit vector and multiply it by a random radius between 0 and spawn_range
 	sword_instance.global_position += Vector2.RIGHT.rotated(randf_range(0, TAU)) * randf_range(0, spawn_range)

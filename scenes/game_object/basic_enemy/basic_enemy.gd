@@ -5,12 +5,7 @@ extends CharacterBody2D
 @onready var area_2d: Area2D = %Area2D
 @onready var health_component: HealthComponent = %HealthComponent
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	area_2d.area_entered.connect(_on_area_entered)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var direction = get_direction_to_player()
 	velocity = direction * SPEED
@@ -22,7 +17,3 @@ func get_direction_to_player():
 	
 	if (player_node != null):
 		return (player_node.global_position - global_position).normalized()
-
-
-func _on_area_entered(other_area: Area2D):
-	health_component.damage(1)
